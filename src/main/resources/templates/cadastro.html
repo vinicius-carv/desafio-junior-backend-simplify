@@ -3,11 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <title>To-do list by Vini Dev</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico"/>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        form {
+            max-width: 450px;
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        a button{
+            background-color: #45a049;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 10px 15px;
+        }
+        a button:hover{
+            transform: scale(110%);
+            transition: 200ms;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
-  <form>
-    <label for="nome"></label>
-    <input type="text" name="nome" id="nome"/>
-  </form>
+<a href="/"><button>Retornar</button></a>
+<form  action="#" th:action="@{/api/cadastroUsuario}" th:object="${Usuario}" method="POST">
+    <label for="nome">Nome:</label>
+    <input type="text" placeholder="Nome" id="nome" th:field="*{nome}"/>
+    <label for="email">Email:</label>
+    <input type="text" placeholder="Email" id="email" th:field="*{email}"/>
+    <label for="senha">Senha:</label>
+    <input type="password" placeholder="Senha" id="senha" th:field="*{senha}"/>
+    <label for="confSenha">Confirmar Senha:</label>
+    <input type="password" placeholder="Confirmar senha" id="confSenha"/>
+    <input type="submit" value="Cadastrar">
+    <script>
+        var senha = document.getElementById("senha");
+        var confSenha = document.getElementById("confSenha");
+        var senhaError = document.getElementById("senhaError");
+
+        // Checa as senhas
+        document.querySelector("form").addEventListener("submit", function (e) {
+            if (senha.value !== confSenha.value) {
+                senhaError.textContent = "Senhas não coincidem.";
+                e.preventDefault(); // Impede a submissao do form
+            } else {
+                senhaError.textContent = "";
+            }
+        });
+    </script>
+</form>
 </body>
 </html>
