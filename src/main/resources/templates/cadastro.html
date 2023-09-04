@@ -70,26 +70,39 @@
 <a href="/"><button>Retornar</button></a>
 <form  action="#" th:action="@{/api/cadastroUsuario}" th:object="${Usuario}" method="POST">
     <label for="nome">Nome:</label>
-    <input type="text" placeholder="Nome" id="nome" th:field="*{nome}"/>
+    <input type="text" placeholder="Nome" id="nome" th:field="*{nome}" required/>
     <label for="email">Email:</label>
-    <input type="text" placeholder="Email" id="email" th:field="*{email}"/>
+    <input type="text" placeholder="Email" id="email" th:field="*{email}"required/>
     <label for="senha">Senha:</label>
-    <input type="password" placeholder="Senha" id="senha" th:field="*{senha}"/>
+    <input type="password" placeholder="Senha" id="senha" th:field="*{senha}"required/>
     <label for="confSenha">Confirmar Senha:</label>
-    <input type="password" placeholder="Confirmar senha" id="confSenha"/>
-    <input type="submit" value="Cadastrar">
+    <input type="password" placeholder="Confirmar senha" id="confSenha" required/>
+    <span class="error" id="senhaError"></span>
+    <input type="submit" value="Cadastrar" id="submitBtn">
     <script>
         var senha = document.getElementById("senha");
         var confSenha = document.getElementById("confSenha");
         var senhaError = document.getElementById("senhaError");
+        var submitBtn = document.getElementById("submitBtn");
 
         // Checa as senhas
         document.querySelector("form").addEventListener("submit", function (e) {
+            var isValid = true;
+
             if (senha.value !== confSenha.value) {
                 senhaError.textContent = "Senhas não coincidem.";
-                e.preventDefault(); // Impede a submissao do form
+                isValid = false;
             } else {
                 senhaError.textContent = "";
+            }
+
+            if (isValid && (senha.value === "" || confSenha.value === "")) {
+                senhaError.textContent = "Campos não podem estar em branco.";
+                isValid = false;
+            }
+
+            if (!isValid) {
+                e.preventDefault(); // Impede a submissao do form
             }
         });
     </script>
