@@ -12,8 +12,10 @@ public class IndexRestController {
     public String indexPage(Model model){
         return "index";
     }
-    @GetMapping("/login")
+    @GetMapping(value = "/login", produces = "application/x-www-form-urlencoded")
     public String loginPage(Model model){
+        Usuario usuarioLogin = new Usuario();
+        model.addAttribute("Usuario",usuarioLogin);
         return "login";
     }
     @RequestMapping(value = "/cadastro", produces = "application/x-www-form-urlencoded")
