@@ -1,6 +1,7 @@
 package com.vinidev.DesafioSimplifyTec.rest;
 
 import com.vinidev.DesafioSimplifyTec.entity.Usuario;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,11 @@ public class IndexRestController {
         Usuario usuarioLogin = new Usuario();
         model.addAttribute("Usuario",usuarioLogin);
         return "login";
+    }
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate(); // Invalidate the session
+        return "redirect:/login";
     }
     @RequestMapping(value = "/cadastro", produces = "application/x-www-form-urlencoded")
     public String cadastroPage(Model model){

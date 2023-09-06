@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To do list by Vini Dev</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #f2f2f2;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-top: 0;
+    }
+
+    a.button {
+      display: inline-block;
+      margin: 10px;
+      text-decoration: none;
+      background-color: #ad20e2;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      padding: 10px 15px;
+      transition: transform 0.2s;
+    }
+
+    a.button:hover {
+      transform: scale(1.1);
+    }
+    .logo {
+      height: 70px;
+      width: 300px;
+    }
+    .sticker-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .sticker {
+      background-color: #f2f2f2;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+      width: 300px;
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .sticker h3 {
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .sticker p {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+    <div class="header">
+        <a href="/dashboard"><img th:src="@{/static/assets/logo.png}" alt="logo.png" class="logo" /></a>
+    </div>
+    <a class="button" href="/tarefas">Retornar</a>
+    <div class="sticker-container">
+        <div class="sticker">
+          <h1>Detalhes da tarefa</h1>
+          <p>ID: <span th:text="${tarefa.id}"></span></p>
+          <p>Nome: <span th:text="${tarefa.nome}"></span></p>
+          <p>Descricao: <span th:text="${tarefa.descricao}"></span></p>
+          <p th:if="${tarefa.realizado == 1}">Finalizada</p>
+          <p th:if="${tarefa.realizado == 0}">Em progresso</p>
+          <a class="button" href="/editarTarefa">Editar</a>
+          <a class="button" th:href="@{/api/excluirTarefa/{id}(id=${tarefa.id})}" >Excluir</a>
+          <a class="button" th:href="@{/api/concluirTarefa/{id}(id=${tarefa.id})}">Finalizar tarefa</a>
+        </div>
+    </div>
+</body>
+</html>

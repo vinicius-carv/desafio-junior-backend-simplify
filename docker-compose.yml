@@ -1,0 +1,13 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .  # Path to your application's Dockerfile
+    ports:
+      - "8080:8080"  # Map your app's port to host
+    depends_on:
+      - redis  # Ensure the Redis container is started first
+  redis:
+    image: redis:latest  # Use the official Redis image
+    ports:
+      - "6379:6379"  # Map Redis port to host
