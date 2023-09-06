@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar nova tarefa</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-top: 0;
+        }
+
+        a.button {
+            display: inline-block;
+            margin: 10px;
+            text-decoration: none;
+            background-color: #ad20e2;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 10px 15px;
+            transition: transform 0.2s;
+        }
+        input[type=text], input[type=datetime-local]{
+            border: none;
+            border-bottom: 2px solid dimgrey;
+        }
+        input[type=text]:focus, input[type=datetime-local]:focus{
+
+        }
+        #submitBtn, #resetBtn{
+            background-color: #ad20e2;
+            border: #8a2daf solid 1px;
+            color: #ffffff;
+            padding-bottom: 2px;
+        }
+        #submitBtn:hover, #resetBtn:hover{
+            cursor: pointer;
+            transform: scale(110%);
+            transition: 200ms;
+        }
+        a.button:hover {
+            transform: scale(1.1);
+        }
+
+        .center-content {
+            text-align: left;
+            display: inline-grid;
+        }
+
+        .logo {
+            height: 70px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="/"><img th:src="@{/static/assets/logo.png}" alt="logo.png" class="logo" /></a>
+    </div>
+    <div class="container">
+        <a class="button" href="/dashboard">Retornar</a>
+        <h1>Nova Tarefa</h1>
+        <form class="center-content" action="#" th:action="@{/api/criarTarefa}" th:object="${Tarefa}" method="POST">
+            <label for="nome">Nome da tarefa</label>
+            <input type="text" placeholder="De um nome a sua tarefa" id="nome" th:field="*{nome}" required/>
+            <label for="descricao">Descricao da tarefa</label>
+            <input type="text" placeholder="Escreva os detalhes de sua tarefa" id="descricao" th:field="*{descricao}"required/>
+            <input type="hidden" id="realizado" th:field="*{realizado}" value=0/>
+            <label for="dataCriado">Data inicio da tarefa</label>
+            <input type="datetime-local" id="dataCriado" th:field="*{dataCriado}"/>
+            <input type="radio" id="1" name="Prioridade" value=1>
+            <label for="1">1</label>
+            <input type="radio" id="2" name="Prioridade" value=2>
+            <label for="2">2</label>
+            <input type="radio" id="3" name="Prioridade" value=3>
+            <label for="3">3</label>
+            <input type="hidden" th:field="*{idCriador}" th:value="${Usuario.id}">
+            <input type="submit" value="Cadastrar" id="submitBtn">
+            <input type="reset" value="Limpar" id="resetBtn">
+        </form>
+    </div>
+    <script>
+        // Get the current date and time in the format expected by datetime-local input
+        function getCurrentDateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Month is 0-based
+            const day = now.getDate().toString().padStart(2, '0');
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const currentDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+            return currentDateTime;
+        }
+
+        // Set the value of the datetime-local input to the current date and time
+        document.getElementById('dataCriado').value = getCurrentDateTime();
+    </script>
+</body>
+</html>

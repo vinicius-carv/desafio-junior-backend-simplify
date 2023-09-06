@@ -1,9 +1,12 @@
 package com.vinidev.DesafioSimplifyTec.entity;
 
 import jakarta.persistence.*;
+
+import java.io.Serializable;
+
 // Iniciando entidade para criacao/modificacao de usuarios
 @Entity(name = "Usuario")
-public class Usuario {
+public class Usuario implements Serializable {
     // Primary key
     @Id
     // Aqui estamos setando para o id de usuario ser gerado utilizando a logica do auto_increment

@@ -29,6 +29,23 @@ public class UsuarioDAOImpl implements UsuarioDAO{
     public Usuario findById(int id){
         return gerenciadorDeEntidade.find(Usuario.class, id);
     }
+    @Override
+    public Usuario findByEmail(String email){
+        // como o metodo .find funciona somente com primary keys, precisamos fazer um script SQL
+        TypedQuery<Usuario> query = gerenciadorDeEntidade.createQuery(
+                "SELECT u FROM Usuario u WHERE u.email = :email", Usuario.class
+        );
+        query.setParameter("email", email);
+
+        List<Usuario> resultList = query.getResultList();
+
+        if (resultList.isEmpty()) {
+            return null; // Retorna null se nada for encontrado
+        }
+
+        // retorna o primeiro resultado da busca
+        return resultList.get(0);
+    }
     // Retorna todos
     @Override
     public List<Usuario> findAll(){

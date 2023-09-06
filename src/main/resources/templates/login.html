@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>To-do list by Vini Dev</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico"/>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        form {
+            max-width: 450px;
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #ad20e2;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        a button{
+            background-color: #ad20e2;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 10px 15px;
+        }
+        a button:hover{
+            transform: scale(110%);
+            transition: 200ms;
+        }
+        input[type="submit"]:hover {
+            transform: scale(110%);
+            transition: 200ms;
+        }
+
+        .error {
+            color: red;
+            margin-top: 5px;
+        }
+        .logo{
+            height: 70px;
+            width: 300px;
+        }
+        .returnBtn{
+            position: absolute;
+            top: 9%;
+            left: 1%;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .returnBtn button{
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<a href="/"><img th:src="@{/static/assets/logo.png}" alt="logo.png" class="logo"/></a>
+<form  action="#" th:action="@{/api/loginUsuario}" th:object="${Usuario}" method="POST">
+    <label for="email">Email:</label>
+    <input type="text" placeholder="Email" id="email" th:field="*{email}"required/>
+    <label for="senha">Senha:</label>
+    <input type="password" placeholder="Senha" id="senha" th:field="*{senha}"required/>
+    <span class="error" id="senhaError"></span>
+    <input type="submit" value="Login" id="submitBtn">
+    <script>
+        var senha = document.getElementById("senha");
+
+        // Checa as senhas
+        document.querySelector("form").addEventListener("submit", function (e) {
+
+        });
+    </script>
+</form>
+</body>
+</html>

@@ -3,10 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>To-do list by Vini Dev</title>
-    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico"/>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            /*background-color: #f2f2f2;*/
+
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-top: 40px;
+        }
+
+        a.button {
+            display: inline-block;
+            margin: 10px;
+            text-decoration: none;
+            background-color: #ad20e2;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 10px 15px;
+            transition: transform 0.2s;
+        }
+
+        a.button:hover {
+            transform: scale(1.1);
+        }
+        .center-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .logo{
+            height: 70px;
+            width: 300px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Uma forma mais pratica de organizar suas tarefas</h1>
-    <a href="/cadastro"><button>Cadastre-se</button></a>
+    <a href="/"><img th:src="@{/static/assets/logo.png}" alt="logo.png" class="logo"/></a>
+    <div class="center-content">
+        <h1>Uma forma mais prática de organizar suas tarefas</h1>
+        <a class="button" href="/cadastro">Cadastre-se</a>
+        <a class="button" href="/login">Login</a>
+    </div>
 </body>
 </html>

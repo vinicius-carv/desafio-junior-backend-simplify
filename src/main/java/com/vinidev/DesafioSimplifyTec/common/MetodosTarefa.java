@@ -55,4 +55,13 @@ public class MetodosTarefa {
         System.out.println("Excluindo tarefa com o id: "+ tarefaAtual.getId());
         tarefaDAO.delete(tarefaAtual);
     }
+    // Deletando tarefa pelo id
+    public void deletarTarefa(TarefaDAO tarefaDAO, int id){
+        Tarefa tarefaAtual = tarefaDAO.findById(id);
+        System.out.println("Excluindo tarefa com o id: "+ tarefaAtual.getId());
+        tarefaDAO.delete(tarefaAtual);
+    }
+    public int numTarefasUsuario(TarefaDAO tarefaDAO, int idUsuario){
+        return tarefaDAO.numTaskByUser(idUsuario);
+    }
 }

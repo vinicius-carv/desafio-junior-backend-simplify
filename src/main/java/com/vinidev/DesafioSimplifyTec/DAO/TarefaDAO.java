@@ -15,7 +15,10 @@ public interface TarefaDAO {
     List<Tarefa> findAll();
     // Retorna as tarefas com determinado nome
     List<Tarefa> findByName(String name);
+    // Retorna tarefas por usuario
+    List<Tarefa> findByUser(int idCriador);
     // Atualiza a tarefa
+    int numTaskByUser(int idCriador);
     void update(Tarefa tarefaAtual);
     // Deleta uma tarefa
     void delete(Tarefa tarefaDeletada);

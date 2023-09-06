@@ -2,6 +2,7 @@ package com.vinidev.DesafioSimplifyTec.DAO;
 
 import com.vinidev.DesafioSimplifyTec.entity.Tarefa;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import java.util.List;
 @Repository
 public class TarefaDAOImpl implements TarefaDAO{
     // O Entity Manager nesse caso, e utilizado para realizar as operacoes com o banco de dados
+    @PersistenceContext
     EntityManager gerenciadorDeEntidade;
     // Injetando o Entity manager
     @Autowired
@@ -40,6 +42,20 @@ public class TarefaDAOImpl implements TarefaDAO{
         TypedQuery<Tarefa> theQuery = gerenciadorDeEntidade.createQuery("SELECT p from Tarefa p where nome=:nome",Tarefa.class);
         theQuery.setParameter("nome",name);
         return theQuery.getResultList();
+    }
+    // Encontra por usuario criador
+    @Override
+    public List<Tarefa> findByUser(int idCriador){
+        TypedQuery<Tarefa> theQuery = gerenciadorDeEntidade.createQuery("SELECT p from Tarefa p where idCriador=:idCriador",Tarefa.class);
+        theQuery.setParameter("idCriador",idCriador);
+        return theQuery.getResultList();
+    }
+    @Override
+    public int numTaskByUser(int idCriador) {
+        TypedQuery<Long> query = gerenciadorDeEntidade.createQuery(
+                "SELECT COUNT(t) FROM Tarefa t WHERE t.idCriador = :idCriador", Long.class);
+        query.setParameter("idCriador", idCriador);
+        return query.getSingleResult().intValue();
     }
     // Atualiza/altera dados da Tarefa
     @Override

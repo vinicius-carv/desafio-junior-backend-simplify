@@ -2,10 +2,11 @@ package com.vinidev.DesafioSimplifyTec.entity;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 // Iniciando entidade para criacao/modificacao de Tarefas
 @Entity(name = "Tarefa")
-public class Tarefa {
+public class Tarefa implements Serializable {
     // Primary key
     @Id
     // Aqui estamos setando para o id de usuario ser gerado utilizando a logica do auto_increment
