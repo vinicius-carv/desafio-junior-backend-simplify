@@ -1,13 +1,22 @@
 version: '3'
 services:
   app:
-    image: your-image-name:tag  # Use the image name and tag from your Dockerfile
+    image: desafiosimplifytec-vinidev:latest  # Use the image name and tag from your Dockerfile
     ports:
       - "8080:8080"  # Map port 8080 from the container to your host
     depends_on:
       - redis  # Ensure that the 'redis' service is started before 'app'
-
+      - mysql
   redis:
     image: redis:latest  # Use the official Redis image
     ports:
       - "6379:6379"  # Map Redis default port
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: SimplifyTec@2023
+      MYSQL_DATABASE: simplifytec
+    ports:
+      - "3306:3306"  # Map MySQL default port
+    volumes:
+      - ./mysql-init:/docker-entrypoint-initdb.d
