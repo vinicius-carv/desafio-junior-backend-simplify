@@ -1,3 +1,22 @@
+# Info sobre o projeto
+### Tecnologias utilizadas
+
+- Java ;)
+- Spring MVC
+- Java POJO
+- RESTful API
+- Redis Server
+- MySQL
+- HTML
+- CSS
+- JavaScript
+
+### Como Executar
+1. Preparar o ambiente
+- > 
+2. 
+
+---------------
 # Desafio sistema de gerenciamento de tarefas (To-Do List)
 Repositório para ser usado pelos candidatos à vaga de Desenvolvedor Júnior Backend Liferay da Simplify
 

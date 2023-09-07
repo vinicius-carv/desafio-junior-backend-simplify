@@ -2,3 +2,7 @@ spring:
   redis:
     host: redis
     port: 6379
+  datasource:
+    url: jdbc:mysql://mysql:3306/simplifytec
+    username: simplifytecpage
+    password: Uma_Senha_Forte144!
