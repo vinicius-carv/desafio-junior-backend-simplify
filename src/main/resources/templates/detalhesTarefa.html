@@ -14,9 +14,9 @@
     }
 
     .header {
-      background-color: #333;
-      color: #fff;
-      padding: 20px;
+        background-color: rgba(0,0,0,0.3);
+        color: #fff;
+        padding: 20px;
     }
 
     .container {
@@ -78,9 +78,21 @@
     .sticker p {
       font-size: 14px;
     }
+    #gif-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1; /* Place the GIF behind other content */
+        background-image: url('https://virtualbackgrounds.site/wp-content/uploads/2020/08/industrial-style-office.jpg');
+        filter: blur(4px);
+        background-size: cover; /* Cover the entire viewport with the GIF */
+    }
   </style>
 </head>
 <body>
+    <div id="gif-container"></div>
     <div class="header">
         <a href="/dashboard"><img th:src="@{/static/assets/logo.png}" alt="logo.png" class="logo" /></a>
     </div>
@@ -91,11 +103,13 @@
           <p>ID: <span th:text="${tarefa.id}"></span></p>
           <p>Nome: <span th:text="${tarefa.nome}"></span></p>
           <p>Descricao: <span th:text="${tarefa.descricao}"></span></p>
+          <p>Data criada: <span th:text="${tarefa.dataCriado}"></span></p>
           <p th:if="${tarefa.realizado == 1}">Finalizada</p>
           <p th:if="${tarefa.realizado == 0}">Em progresso</p>
-          <a class="button" href="/editarTarefa">Editar</a>
-          <a class="button" th:href="@{/api/excluirTarefa/{id}(id=${tarefa.id})}" >Excluir</a>
-          <a class="button" th:href="@{/api/concluirTarefa/{id}(id=${tarefa.id})}">Finalizar tarefa</a>
+            <a class="button" th:href="@{/editarTarefa/{id}(id=${tarefa.id})}" >Editar</a>
+            <a class="button" th:href="@{/api/excluirTarefa/{id}(id=${tarefa.id})}" >Excluir</a>
+          <a class="button" th:if="${tarefa.realizado==0}" th:href="@{/api/concluirTarefa/{id}(id=${tarefa.id})}">Finalizar tarefa</a>
+          <a class="button" th:if="${tarefa.realizado==1}" th:href="@{/api/abrirTarefa/{id}(id=${tarefa.id})}">Reabrir tarefa</a>
         </div>
     </div>
 </body>

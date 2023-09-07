@@ -1,13 +1,13 @@
 version: '3'
 services:
   app:
-    build:
-      context: .  # Path to your application's Dockerfile
+    image: your-image-name:tag  # Use the image name and tag from your Dockerfile
     ports:
-      - "8080:8080"  # Map your app's port to host
+      - "8080:8080"  # Map port 8080 from the container to your host
     depends_on:
-      - redis  # Ensure the Redis container is started first
+      - redis  # Ensure that the 'redis' service is started before 'app'
+
   redis:
     image: redis:latest  # Use the official Redis image
     ports:
-      - "6379:6379"  # Map Redis port to host
+      - "6379:6379"  # Map Redis default port

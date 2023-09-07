@@ -42,7 +42,6 @@ public class EndpointController {
     @PostMapping(value = "/loginUsuario", consumes = "application/x-www-form-urlencoded", produces = "application/x-www-form-urlencoded")
     public RedirectView loginUsuario(Usuario usuario, HttpSession session) {
         System.out.println("Logando usuario: " + usuario.getEmail());
-
         Usuario usuarioLogin = usuarioDAO.findByEmail(usuario.getEmail());
         if (usuarioLogin != null) {
             if (usuario.getSenha().equals(usuarioLogin.getSenha())) {
@@ -79,13 +78,52 @@ public class EndpointController {
             return new RedirectView("/login");
         }
     }
-    @PostMapping(value = "/editarTarefa", consumes = "application/x-www-form-urlencoded")
-    public RedirectView editarTarefa(Tarefa tarefaEditada, HttpSession session){
+    @GetMapping(value = "/concluirTarefa/{id}")
+    public RedirectView concluirTarefa(@PathVariable("id") int id, HttpSession session){
         Usuario loggedUser = (Usuario) session.getAttribute("loggedUser");
-        tarefaEditada.setIdCriador(loggedUser.getId());
-        System.out.println("Criando tarefa: "+ tarefaEditada.toString());
-        tarefaDAO.save(tarefaEditada);
-        System.out.println("Nova tarefa criada id: "+tarefaEditada.getId());
+        Tarefa tarefaConcluida = tarefaDAO.findById(id);
+        tarefaConcluida.setRealizado(1);
+        System.out.println("Finalzando tarefa: "+ tarefaConcluida.toString());
+        tarefaDAO.update(tarefaConcluida);
+        return new RedirectView("/dashboard");
+    }
+    @GetMapping(value = "/abrirTarefa/{id}")
+    public RedirectView abrirTarefa(@PathVariable("id") int id, HttpSession session){
+        Usuario loggedUser = (Usuario) session.getAttribute("loggedUser");
+        Tarefa tarefaAberta = tarefaDAO.findById(id);
+        tarefaAberta.setRealizado(0);
+        System.out.println("Reabrindo tarefa: "+ tarefaAberta.toString());
+        tarefaDAO.update(tarefaAberta);
+        return new RedirectView("/dashboard");
+    }
+    @PostMapping(value = "/editarTarefa/{id}", consumes = "application/x-www-form-urlencoded")
+    public RedirectView editarTarefa(@PathVariable("id") int id, Tarefa tarefaEditada, HttpSession session) {
+        Usuario loggedUser = (Usuario) session.getAttribute("loggedUser");
+        System.out.println("Editando tarefa com id: " + id);
+        System.out.println("Tarefa com novos dados: " + tarefaEditada.toString());
+
+        // Fetch the existing task from the database
+        Tarefa tarefaASerEditada = servicoTarefa.findById(id);
+        System.out.println("Tarefa com dados antigos: " + tarefaASerEditada.toString());
+        // Check if the task exists
+        if (tarefaASerEditada == null) {
+            // Handle the case where the task does not exist, e.g., return an error page or message
+            // You can also redirect to a different page if needed
+            return new RedirectView("/error-page");
+        }
+
+        // Set the properties of the task only if it exists
+        tarefaASerEditada.setNome(tarefaEditada.getNome());
+        tarefaASerEditada.setDescricao(tarefaEditada.getDescricao());
+        tarefaASerEditada.setRealizado(tarefaEditada.getRealizado());
+        tarefaASerEditada.setPrioridade(tarefaEditada.getPrioridade());
+        System.out.println("Editando tarefa: " + tarefaASerEditada.toString());
+
+        // Update the task in the database
+        tarefaDAO.update(tarefaASerEditada);
+        System.out.println("Tarefa editada id: " + tarefaASerEditada.getId());
+
+        // Redirect to the dashboard or another appropriate page
         return new RedirectView("/dashboard");
     }
 }

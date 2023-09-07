@@ -52,6 +52,26 @@ public class DashboardController {
             return "redirect:/login";
         }
     }
+    @GetMapping(value = "/editarTarefa/{id}", produces = "application/x-www-form-urlencoded")
+    public String editarTarefaPage(@PathVariable("id") int id, HttpSession session, Model model){
+        System.out.println("pagina editar tarefa" + id);
+        Usuario loggedUser = (Usuario) session.getAttribute("loggedUser");
+        if (loggedUser != null) {
+            Tarefa novaTarefa = servicoTarefa.findById(id);
+            if(loggedUser.getId()==novaTarefa.getIdCriador()){
+                model.addAttribute("Usuario", loggedUser);
+                model.addAttribute("id",id);
+                System.out.println("id criador: "+loggedUser.getId());
+                model.addAttribute("Tarefa", novaTarefa);
+                return "editarTarefa";
+            }else{
+                return "redirect:/dashboard";
+            }
+        } else {
+            // Handle the case where the user is not logged in
+            return "redirect:/login";
+        }
+    }
     @GetMapping(value = "/tarefas")
     public String verTarefasPage(HttpSession session, Model model){
         Usuario loggedUser = (Usuario) session.getAttribute("loggedUser");
@@ -69,11 +89,13 @@ public class DashboardController {
         if (loggedUser != null) {
             // Assuming you have a method to find a specific task by its ID
             Tarefa tarefa = servicoTarefa.findById(id);
+            if(loggedUser.getId() == tarefa.getIdCriador()){
+                model.addAttribute("tarefa", tarefa);
 
-            // Add the 'tarefa' object to the model for rendering in the view
-            model.addAttribute("tarefa", tarefa);
-
-            return "detalhesTarefa";
+                return "detalhesTarefa";
+            }else{
+                return "redirect:/dashboard";
+            }
         }else {
             // Handle the case where the user is not logged in
             return "redirect:/login";

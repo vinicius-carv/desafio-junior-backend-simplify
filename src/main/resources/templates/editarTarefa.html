@@ -90,47 +90,48 @@
     </style>
 </head>
 <body>
-    <div id="gif-container"></div>
-    <div class="header">
-        <a href="/"><img th:src="@{/static/assets/logo.png}" alt="logo.png" class="logo" /></a>
-    </div>
-    <div class="container">
-        <a class="button" href="/dashboard">Retornar</a>
-        <h1>Nova Tarefa</h1>
-        <form class="center-content" action="#" th:action="@{/api/criarTarefa}" th:object="${Tarefa}" method="POST">
-            <label for="nome">Nome da tarefa</label>
-            <input type="text" placeholder="De um nome a sua tarefa" id="nome" th:field="*{nome}" required/>
-            <label for="descricao">Descricao da tarefa</label>
-            <input type="text" placeholder="Escreva os detalhes de sua tarefa" id="descricao" th:field="*{descricao}"required/>
-            <input type="hidden" id="realizado" th:field="*{realizado}" value=0/>
-            <label for="dataCriado">Data inicio da tarefa</label>
-            <input type="datetime-local" id="dataCriado" th:field="*{dataCriado}"/>
-            <input type="radio" id="1" name="Prioridade" value=1>
-            <label for="1">1</label>
-            <input type="radio" id="2" name="Prioridade" value=2>
-            <label for="2">2</label>
-            <input type="radio" id="3" name="Prioridade" value=3>
-            <label for="3">3</label>
-            <input type="hidden" th:field="*{idCriador}" th:value="${Usuario.id}">
-            <input type="submit" value="Cadastrar" id="submitBtn">
-            <input type="reset" value="Limpar" id="resetBtn">
-        </form>
-    </div>
-    <script>
-        // Get the current date and time in the format expected by datetime-local input
-        function getCurrentDateTime() {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Month is 0-based
-            const day = now.getDate().toString().padStart(2, '0');
-            const hours = now.getHours().toString().padStart(2, '0');
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const currentDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
-            return currentDateTime;
-        }
+<div class="header">
+    <a href="/"><img th:src="@{/static/assets/logo.png}" alt="logo.png" class="logo" /></a>
+</div>
+<div id="gif-container"></div>
+<div class="container">
+    <a class="button" href="/dashboard">Retornar</a>
+    <h1>Nova Tarefa</h1>
+    <form class="center-content" action="#" th:action="@{/api/editarTarefa/{id}(id=${Tarefa.id})}" th:object="${Tarefa}" method="POST">
+        <input type="hidden" id="id" th:field="*{id}" th:value="${Tarefa.id}" required/>
+        <label for="nome">Nome da tarefa</label>
+        <input type="text" placeholder="De um nome a sua tarefa" id="nome" th:field="*{nome}" required/>
+        <label for="descricao">Descricao da tarefa</label>
+        <input type="text" placeholder="Escreva os detalhes de sua tarefa" id="descricao" th:field="*{descricao}" required/>
+        <input type="hidden" id="realizado" th:field="*{realizado}" th:value="${Tarefa.realizado}"/>
+        <label for="dataCriado">Data inicio da tarefa</label>
+        <input type="datetime-local" id="dataCriado" th:field="*{dataCriado}" th:value="${Tarefa.dataCriado}" required/>
+        <input type="radio" id="1" name="Prioridade" value=1>
+        <label for="1">1</label>
+        <input type="radio" id="2" name="Prioridade" value=2>
+        <label for="2">2</label>
+        <input type="radio" id="3" name="Prioridade" value=3>
+        <label for="3">3</label>
+        <input type="hidden" th:field="*{idCriador}" th:value="${Usuario.id}">
+        <input type="submit" value="Cadastrar" id="submitBtn">
+        <input type="reset" value="Limpar" id="resetBtn">
+    </form>
+</div>
+<script>
+    // Get the current date and time in the format expected by datetime-local input
+    function getCurrentDateTime() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Month is 0-based
+        const day = now.getDate().toString().padStart(2, '0');
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const currentDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+        return currentDateTime;
+    }
 
-        // Set the value of the datetime-local input to the current date and time
-        document.getElementById('dataCriado').value = getCurrentDateTime();
-    </script>
+    // Set the value of the datetime-local input to the current date and time
+    document.getElementById('dataCriado').value = getCurrentDateTime();
+</script>
 </body>
 </html>

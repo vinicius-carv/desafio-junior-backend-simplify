@@ -14,7 +14,7 @@
         }
 
         .header {
-            background-color: #333;
+            background-color: rgba(0,0,0,0.3);
             color: #fff;
             padding: 20px;
         }
@@ -55,6 +55,9 @@
         }
         .sticker-container {
             display: flex;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
             flex-wrap: wrap;
             gap: 20px;
         }
@@ -76,17 +79,31 @@
         .sticker p {
             font-size: 14px;
         }
+        #gif-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Place the GIF behind other content */
+            background-image: url('https://virtualbackgrounds.site/wp-content/uploads/2020/08/industrial-style-office.jpg');
+            filter: blur(4px);
+            background-size: cover; /* Cover the entire viewport with the GIF */
+        }
     </style>
 </head>
 <body>
+<div id="gif-container"></div>
     <div class="header">
         <a href="/dashboard"><img th:src="@{/static/assets/logo.png}" alt="logo.png" class="logo" /></a>
     </div>
     <a class="button" th:href="@{/dashboard}">Retornar</a>
+    <a class="button" th:href="@{/novaTarefa}">Nova Tarefa</a>
     <div class="sticker-container">
         <div th:each="tarefa : ${tarefasUsuario}" class="sticker">
             <h3 th:text="${tarefa.nome}"></h3>
             <p th:text="${tarefa.descricao}"></p>
+            <p>Data inicio: <span th:text="${tarefa.dataCriado}"></span></p>
             <p th:if="${tarefa.realizado == 1}">Finalizada</p>
             <p th:if="${tarefa.realizado == 0}">Em progresso</p>
             <a th:href="@{/tarefa/{id}(id=${tarefa.id})}" class="button">View Details</a>
