@@ -10,8 +10,9 @@
 	</parent>
 	<groupId>com.vinidev</groupId>
 	<artifactId>DesafioSimplifyTec</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-RELEASE</version>
 	<name>DesafioSimplifyTec</name>
+	<packaging>jar</packaging>
 	<description>Desafio para a Simplify Tecnologia</description>
 	<properties>
 		<java.version>17</java.version>
