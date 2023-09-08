@@ -33,6 +33,7 @@
    - [https://drive.google.com/file/d/173Uch7uVGT4-fdfWtkEyRli5r3a3Diox/view?usp=sharing](https://drive.google.com/file/d/173Uch7uVGT4-fdfWtkEyRli5r3a3Diox/view?usp=sharing)
 3. Com o projeto buildado, agora e so executar:
    > cd target
+
    > java -jar DesafioSimplifyTec-0.0.1-SNAPSHOT.jar
 4. O app esta rodando, visite:
    - [http://localhost:8080](http://localhost:8080)
