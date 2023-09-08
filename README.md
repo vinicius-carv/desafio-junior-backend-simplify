@@ -12,9 +12,29 @@
 - JavaScript
 
 ### Como Executar
+0. Requisitos
+   - MySQL;
+   - Java;
+   - Maven;
+   - redis-server;
 1. Preparar o ambiente
-- > 
-2. 
+   - Utilizar o script init.sql no diretorio /mysql-init para criar o banco de dados, tabela e usuario;
+   - Instalar o 'redis-server' para intermediar operacoes entre o app Spring e o banco de dados:
+   - Ubuntu:
+   - > sudo snap install redis
+   - Fedora:
+   - > sudo dnf install redis
+2. Buildar o app:
+   - Apos clonar o repositorio, navegue ate a pagina raiz:
+     > cd desafio-junior-backend-simplify
+   - E crie uma build do projeto:
+     > mvn clean install
+3. Com o projeto buildado, agora e so executar:
+   > cd target
+   > java -jar DesafioSimplifyTec-0.0.1-SNAPSHOT.jar
+4. O app esta rodando, visite:
+   - [http://localhost:8080](http://localhost:8080)
+5. Aproveite!
 
 ---------------
 # Desafio sistema de gerenciamento de tarefas (To-Do List)
