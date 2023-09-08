@@ -29,6 +29,8 @@
      > cd desafio-junior-backend-simplify
    - E crie uma build do projeto:
      > mvn clean install
+   - Caso nao tenha o maven instalado, uma versao buildada do app esta disponivel em:
+   - [https://drive.google.com/file/d/173Uch7uVGT4-fdfWtkEyRli5r3a3Diox/view?usp=sharing](https://drive.google.com/file/d/173Uch7uVGT4-fdfWtkEyRli5r3a3Diox/view?usp=sharing)
 3. Com o projeto buildado, agora e so executar:
    > cd target
    > java -jar DesafioSimplifyTec-0.0.1-SNAPSHOT.jar
